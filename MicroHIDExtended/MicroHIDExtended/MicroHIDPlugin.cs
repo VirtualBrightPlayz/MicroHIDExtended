@@ -15,6 +15,8 @@ namespace MicroHIDExtended
         public PluginEvents PLEV;
         public static float chargeRate;
         public static float chargeIntervals;
+        public static float useChargeRate;
+        public static float useChargeIntervals;
         public HarmonyInstance inst;
 
         public override void OnDisable()
@@ -33,8 +35,10 @@ namespace MicroHIDExtended
                 return;
             PLEV = new PluginEvents(this);
             Events.RoundStartEvent += PLEV.RoundStart;
-            chargeRate = Config.GetFloat("mhid_charge_rate", 0.1f);
-            chargeIntervals = Config.GetFloat("mhid_charge_interval", 3f);
+            chargeRate = Config.GetFloat("mhid_charge_rate", 0.015f);
+            chargeIntervals = Config.GetFloat("mhid_charge_interval", 0.5f);
+            useChargeRate = Config.GetFloat("mhid_charge_use_rate", 0.015f);
+            useChargeIntervals = Config.GetFloat("mhid_charge_use_interval", 0.5f);
             inst = HarmonyInstance.Create("virtualbrightplayz.mhidext");
             inst.PatchAll();
         }
