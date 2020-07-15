@@ -18,7 +18,7 @@ namespace MicroHIDExtended
             if (!timers.ContainsKey(__instance))
                 timers.Add(__instance, 0f);
             timers[__instance] += Time.deltaTime;
-            if (timers[__instance] >= MicroHIDPlugin.chargeIntervals)
+            if (timers[__instance] >= MicroHIDPlugin.instance.Config.mhid_charge_interval)
             {
                 timers[__instance] = 0f;
                 if (__instance.curItem != ItemType.MicroHID)
@@ -28,7 +28,7 @@ namespace MicroHIDExtended
                         if (__instance.items[i].id == ItemType.MicroHID)
                         {
                             var item = __instance.items[i];
-                            item.durability += MicroHIDPlugin.chargeRate;
+                            item.durability += MicroHIDPlugin.instance.Config.mhid_charge_rate;
                             __instance.items[i] = item;
                         }
                     }

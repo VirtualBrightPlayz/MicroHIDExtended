@@ -13,26 +13,25 @@ namespace MicroHIDExtended
 {
     public class MicroHIDPlugin : Plugin<Config>
     {
+        public static MicroHIDPlugin instance;
         public override string Name => "MicroHIDExtended";
         public PluginEvents PLEV;
-        public static float chargeRate;
-        public static float chargeIntervals;
-        public static float useChargeRate;
-        public static float useChargeIntervals;
         public Harmony inst;
 
         public override void OnDisabled()
         {
-            Exiled.Events.Handlers.Server.RoundStarted -= PLEV.RoundStart;
             base.OnDisabled();
+            Exiled.Events.Handlers.Server.RoundStarted -= PLEV.RoundStart;
             PLEV = null;
             inst.UnpatchAll();
             inst = null;
+            instance = null;
         }
 
         public override void OnEnabled()
         {
             base.OnEnabled();
+            instance = this;
             PLEV = new PluginEvents(this);
             Exiled.Events.Handlers.Server.RoundStarted += PLEV.RoundStart;
             inst = new Harmony("virtualbrightplayz.mhidext");

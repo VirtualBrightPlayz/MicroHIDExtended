@@ -20,20 +20,20 @@ namespace MicroHIDExtended
             if (__instance.refHub.inventory.curItem == ItemType.MicroHID && __instance.NetworkCurrentHidState == MicroHID.MicroHidState.Idle)
             {
                 timers[__instance] += Time.deltaTime;
-                if (timers[__instance] >= MicroHIDPlugin.chargeIntervals)
+                if (timers[__instance] >= MicroHIDPlugin.instance.Config.mhid_charge_rate)
                 {
                     timers[__instance] = 0f;
-                    __instance.ChangeEnergy(__instance.GetEnergy() + MicroHIDPlugin.chargeRate);
+                    __instance.ChangeEnergy(__instance.GetEnergy() + MicroHIDPlugin.instance.Config.mhid_charge_rate);
                     __instance.NetworkEnergy = __instance.GetEnergy();
                 }
             }
             if (__instance.refHub.inventory.curItem == ItemType.MicroHID && __instance.NetworkCurrentHidState != MicroHID.MicroHidState.Idle)
             {
                 timers[__instance] += Time.deltaTime;
-                if (timers[__instance] >= MicroHIDPlugin.useChargeIntervals)
+                if (timers[__instance] >= MicroHIDPlugin.instance.Config.mhid_charge_use_interval)
                 {
                     timers[__instance] = 0f;
-                    __instance.ChangeEnergy(__instance.GetEnergy() + MicroHIDPlugin.useChargeRate);
+                    __instance.ChangeEnergy(__instance.GetEnergy() + MicroHIDPlugin.instance.Config.mhid_charge_use_rate);
                     __instance.NetworkEnergy = __instance.GetEnergy();
                 }
             }
