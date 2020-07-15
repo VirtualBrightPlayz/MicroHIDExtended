@@ -26,7 +26,7 @@ namespace MicroHIDExtended
                     timers[__instance] = 0f;
                     var info = __instance.info;
                     info.durability += MicroHIDPlugin.instance.Config.mhid_charge_rate;
-                    __instance.SetupPickup(info, __instance.Networkposition, __instance.Networkrotation);
+                    //__instance.SetupPickup(info, __instance.Networkposition, __instance.Networkrotation);
                     __instance.Networkinfo = info;
                     //__instance.RefreshDurability();
                 }
