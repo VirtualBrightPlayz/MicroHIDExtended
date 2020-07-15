@@ -27,7 +27,7 @@ namespace MicroHIDExtended
                     __instance.NetworkEnergy = __instance.GetEnergy();
                 }
             }
-            if (__instance.refHub.inventory.curItem == ItemType.MicroHID && __instance.NetworkCurrentHidState != MicroHID.MicroHidState.Idle)
+            if (__instance.refHub.inventory.curItem == ItemType.MicroHID && (__instance.NetworkCurrentHidState == MicroHID.MicroHidState.Discharge || __instance.NetworkCurrentHidState == MicroHID.MicroHidState.Spinning))
             {
                 timers[__instance] += Time.deltaTime;
                 if (timers[__instance] >= MicroHIDPlugin.instance.Config.mhid_charge_use_interval)
