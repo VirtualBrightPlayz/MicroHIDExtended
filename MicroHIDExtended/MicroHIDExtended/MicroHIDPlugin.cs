@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using EXILED;
-using EXILED.Extensions;
+using Exiled.API;
+using Exiled.API.Features;
+using Exiled.Events;
+using Exiled;
 using Harmony;
 
 namespace MicroHIDExtended
 {
-    public class MicroHIDPlugin : Plugin
+    public class MicroHIDPlugin : Plugin<Config>
     {
-        public override string getName => "MicroHIDExtended";
+        public override string Name => "MicroHIDExtended";
         public PluginEvents PLEV;
         public static float chargeRate;
         public static float chargeIntervals;
@@ -19,32 +21,22 @@ namespace MicroHIDExtended
         public static float useChargeIntervals;
         public HarmonyInstance inst;
 
-        public override void OnDisable()
+        public override void OnDisabled()
         {
-            if (!Config.GetBool("mhid_enable", true))
-                return;
-            Events.RoundStartEvent -= PLEV.RoundStart;
+            Exiled.Events.Handlers.Server.RoundStarted -= PLEV.RoundStart;
+            base.OnDisabled();
             PLEV = null;
             inst.UnpatchAll();
             inst = null;
         }
 
-        public override void OnEnable()
+        public override void OnEnabled()
         {
-            if (!Config.GetBool("mhid_enable", true))
-                return;
+            base.OnEnabled();
             PLEV = new PluginEvents(this);
-            Events.RoundStartEvent += PLEV.RoundStart;
-            chargeRate = Config.GetFloat("mhid_charge_rate", 0.015f);
-            chargeIntervals = Config.GetFloat("mhid_charge_interval", 0.5f);
-            useChargeRate = Config.GetFloat("mhid_charge_use_rate", 0.015f);
-            useChargeIntervals = Config.GetFloat("mhid_charge_use_interval", 0.5f);
+            Exiled.Events.Handlers.Server.RoundStarted += PLEV.RoundStart;
             inst = HarmonyInstance.Create("virtualbrightplayz.mhidext");
             inst.PatchAll();
-        }
-
-        public override void OnReload()
-        {
         }
     }
 }
