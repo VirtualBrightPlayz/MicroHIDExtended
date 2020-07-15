@@ -7,7 +7,7 @@ using Exiled.API;
 using Exiled.API.Features;
 using Exiled.Events;
 using Exiled;
-using Harmony;
+using HarmonyLib;
 
 namespace MicroHIDExtended
 {
@@ -19,7 +19,7 @@ namespace MicroHIDExtended
         public static float chargeIntervals;
         public static float useChargeRate;
         public static float useChargeIntervals;
-        public HarmonyInstance inst;
+        public Harmony inst;
 
         public override void OnDisabled()
         {
@@ -35,7 +35,7 @@ namespace MicroHIDExtended
             base.OnEnabled();
             PLEV = new PluginEvents(this);
             Exiled.Events.Handlers.Server.RoundStarted += PLEV.RoundStart;
-            inst = HarmonyInstance.Create("virtualbrightplayz.mhidext");
+            inst = new Harmony("virtualbrightplayz.mhidext");
             inst.PatchAll();
         }
     }
