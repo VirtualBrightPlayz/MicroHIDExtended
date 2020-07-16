@@ -15,6 +15,8 @@ namespace MicroHIDExtended
     {
         public static MicroHIDPlugin instance;
         public override string Name => "MicroHIDExtended";
+        public override string Author => "VirtualBrightPlayz";
+        public override Version Version => new Version(1, 1, 0);
         public PluginEvents PLEV;
         public Harmony inst;
 
