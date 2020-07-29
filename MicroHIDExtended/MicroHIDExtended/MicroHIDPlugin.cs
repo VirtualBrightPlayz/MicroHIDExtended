@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exiled.API;
 using Exiled.API.Features;
-using Exiled.Events;
-using Exiled;
 using HarmonyLib;
 
 namespace MicroHIDExtended
@@ -35,6 +28,7 @@ namespace MicroHIDExtended
             base.OnEnabled();
             instance = this;
             PLEV = new PluginEvents(this);
+            Log.Warn(Config.mhid_charge_rate);
             Exiled.Events.Handlers.Server.RoundStarted += PLEV.RoundStart;
             inst = new Harmony("virtualbrightplayz.mhidext");
             inst.PatchAll();
