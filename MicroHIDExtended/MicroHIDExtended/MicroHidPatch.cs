@@ -30,7 +30,7 @@ namespace MicroHIDExtended
                 if (timers[__instance] >= MicroHIDPlugin.instance.Config.mhid_charge_use_interval)
                 {
                     timers[__instance] = 0f;
-                    //__instance.ChangeEnergy(__instance.GetEnergy() + MicroHIDPlugin.instance.Config.mhid_charge_use_rate);
+                    __instance.ChangeEnergy(__instance.GetEnergy() + MicroHIDPlugin.instance.Config.mhid_charge_use_rate);
                     __instance.Energy = __instance.GetEnergy();
                     __instance.NetworkEnergy = __instance.GetEnergy();
                 }
