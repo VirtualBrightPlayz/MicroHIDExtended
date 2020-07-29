@@ -28,7 +28,6 @@ namespace MicroHIDExtended
             base.OnEnabled();
             instance = this;
             PLEV = new PluginEvents(this);
-            Log.Warn(Config.mhid_charge_rate);
             Exiled.Events.Handlers.Server.RoundStarted += PLEV.RoundStart;
             inst = new Harmony("virtualbrightplayz.mhidext");
             inst.PatchAll();
