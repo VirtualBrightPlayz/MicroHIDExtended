@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Exiled.API;
 using Exiled.API.Features;
-using Exiled.Events;
-using Exiled;
 using HarmonyLib;
 
 namespace MicroHIDExtended

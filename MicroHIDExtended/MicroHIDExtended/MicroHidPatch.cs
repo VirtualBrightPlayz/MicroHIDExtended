@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using HarmonyLib;
 using UnityEngine;
 
@@ -20,7 +16,7 @@ namespace MicroHIDExtended
             if (__instance.refHub.inventory.curItem == ItemType.MicroHID && __instance.NetworkCurrentHidState == MicroHID.MicroHidState.Idle)
             {
                 timers[__instance] += Time.deltaTime;
-                if (timers[__instance] >= MicroHIDPlugin.instance.Config.mhid_charge_rate)
+                if (timers[__instance] >= MicroHIDPlugin.instance.Config.mhid_charge_interval)
                 {
                     timers[__instance] = 0f;
                     __instance.ChangeEnergy(__instance.GetEnergy() + MicroHIDPlugin.instance.Config.mhid_charge_rate);
