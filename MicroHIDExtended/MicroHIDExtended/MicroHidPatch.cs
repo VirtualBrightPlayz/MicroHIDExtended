@@ -13,6 +13,8 @@ namespace MicroHIDExtended
         {
             __instance.chargeupTime = MicroHIDPlugin.instance.Config.chargeupTime;
             __instance.chargedownTime = MicroHIDPlugin.instance.Config.chargedownTime;
+            if (MicroHIDPlugin.instance.Config.disablePreDischarge)
+                __instance.soundEffectPause = 1.5f;
             if (!timers.ContainsKey(__instance))
                 timers.Add(__instance, 0f);
             if (__instance.refHub.inventory.curItem == ItemType.MicroHID && __instance.NetworkCurrentHidState == MicroHID.MicroHidState.Idle)

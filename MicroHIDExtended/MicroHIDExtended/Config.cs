@@ -15,5 +15,6 @@ namespace MicroHIDExtended
         public float mhid_charge_use_idle_interval { get; set; } = 0.5f;
         public float chargeupTime { get; set; } = 5.97f;
         public float chargedownTime { get; set; } = 4.32f;
+        public bool disablePreDischarge { get; set; } = false;
     }
 }
