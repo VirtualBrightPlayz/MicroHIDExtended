@@ -11,6 +11,8 @@ namespace MicroHIDExtended
 
         public static void Prefix(MicroHID __instance)
         {
+            __instance.chargeupTime = MicroHIDPlugin.instance.Config.chargeupTime;
+            __instance.chargedownTime = MicroHIDPlugin.instance.Config.chargedownTime;
             if (!timers.ContainsKey(__instance))
                 timers.Add(__instance, 0f);
             if (__instance.refHub.inventory.curItem == ItemType.MicroHID && __instance.NetworkCurrentHidState == MicroHID.MicroHidState.Idle)
@@ -20,18 +22,26 @@ namespace MicroHIDExtended
                 {
                     timers[__instance] = 0f;
                     __instance.ChangeEnergy(__instance.GetEnergy() + MicroHIDPlugin.instance.Config.mhid_charge_rate);
-                    __instance.Energy = __instance.GetEnergy();
                     __instance.NetworkEnergy = __instance.GetEnergy();
                 }
             }
-            if (__instance.refHub.inventory.curItem == ItemType.MicroHID && (__instance.NetworkCurrentHidState == MicroHID.MicroHidState.Discharge || __instance.NetworkCurrentHidState == MicroHID.MicroHidState.Spinning))
+            if (__instance.refHub.inventory.curItem == ItemType.MicroHID && __instance.NetworkCurrentHidState == MicroHID.MicroHidState.Discharge)
             {
                 timers[__instance] += Time.deltaTime;
                 if (timers[__instance] >= MicroHIDPlugin.instance.Config.mhid_charge_use_interval)
                 {
                     timers[__instance] = 0f;
                     __instance.ChangeEnergy(__instance.GetEnergy() + MicroHIDPlugin.instance.Config.mhid_charge_use_rate);
-                    __instance.Energy = __instance.GetEnergy();
+                    __instance.NetworkEnergy = __instance.GetEnergy();
+                }
+            }
+            if (__instance.refHub.inventory.curItem == ItemType.MicroHID && __instance.NetworkCurrentHidState == MicroHID.MicroHidState.Spinning)
+            {
+                timers[__instance] += Time.deltaTime;
+                if (timers[__instance] >= MicroHIDPlugin.instance.Config.mhid_charge_use_idle_interval)
+                {
+                    timers[__instance] = 0f;
+                    __instance.ChangeEnergy(__instance.GetEnergy() + MicroHIDPlugin.instance.Config.mhid_charge_use_idle_rate);
                     __instance.NetworkEnergy = __instance.GetEnergy();
                 }
             }

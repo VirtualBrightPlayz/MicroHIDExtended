@@ -16,13 +16,10 @@ namespace MicroHIDExtended
                 if (!timers.ContainsKey(__instance))
                     timers.Add(__instance, 0f);
                 timers[__instance] += Time.deltaTime;
-                if (timers[__instance] >= MicroHIDPlugin.instance.Config.mhid_charge_rate)
+                if (timers[__instance] >= MicroHIDPlugin.instance.Config.mhid_charge_interval)
                 {
                     timers[__instance] = 0f;
-                    var info = __instance.info;
-                    info.durability += MicroHIDPlugin.instance.Config.mhid_charge_rate;
-                    //__instance.SetupPickup(info, __instance.Networkposition, __instance.Networkrotation);
-                    __instance.Networkinfo = info;
+                    __instance.durability += MicroHIDPlugin.instance.Config.mhid_charge_rate;
                     //__instance.RefreshDurability();
                 }
             }
